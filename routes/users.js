@@ -11,7 +11,7 @@ const supersecret = process.env.SUPER_SECRET
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body
-
+  console.log(username)
   try {
     const hash = await bcrypt.hash(password, saltRounds)
 

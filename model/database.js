@@ -2,10 +2,9 @@ require('dotenv').config()
 const mysql = require('mysql')
 const fs = require('fs')
 
-var file = process.argv[2]
+/*var file = process.argv[2]
 console.log('file is: ', file)
-const fs = require('fs')
-const migrationSQL = fs.readFileSync(__dirname + '/' + file).toString()
+const fs = require('fs')*/
 
 const DB_HOST = process.env.DB_HOST
 const DB_USER = process.env.DB_USER
@@ -19,14 +18,17 @@ const con = mysql.createConnection({
   database: DB_NAME || 'todos',
   multipleStatements: true,
 })
-
 con.connect(function (err) {
   if (err) throw err
   console.log('Connected!')
 
-  con.query(migrationSQL, function (err, result) {
+  let sql = fs.readFileSync(__dirname + '/init_db.sql').toString()
+  console.log(sql)
+  con.query(sql, function (err, result) {
     if (err) throw err
-    console.log('Migration was completed')
+    console.log('Table creation was successful!')
+
+    console.log('Closing...')
   })
 
   con.end()
