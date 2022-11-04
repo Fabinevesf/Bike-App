@@ -11,7 +11,9 @@ function Login() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
+    console.log('hello :)')
     setCredentials({ ...credentials, [name]: value })
+    console.log(credentials)
   }
 
   const login = async () => {
