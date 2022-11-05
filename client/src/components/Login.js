@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import './Login.css'
 
 function Login() {
   const [credentials, setCredentials] = useState({
-    username: 'test',
-    password: 'test',
+    username: '',
+    password: '',
   })
 
   const { username, password } = credentials
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    console.log('hello :)')
+
     setCredentials({ ...credentials, [name]: value })
-    console.log(credentials)
   }
 
   const login = async () => {
@@ -51,25 +51,33 @@ function Login() {
 
   return (
     <div>
-      <div>
+      <div className='login'>
+        <h2>Login Bike Users</h2>
         <input
           value={username}
           onChange={handleChange}
           name='username'
           type='text'
-          className='form-control mb-2'
-        />
+          className='form-control mb-3'
+          placeholder='Enter with your username'
+        />{' '}
+        Username
         <input
           value={password}
           onChange={handleChange}
           name='password'
           type='password'
-          className='form-control mb-2'
-        />
-        <button className='btn btn-primary' onClick={login}>
+          className='form-control mb-3'
+          placeholder='Password'
+        />{' '}
+        Password
+        <br />
+        <br />
+        <br />
+        <button className='btn btn-success' onClick={login}>
           Log in
         </button>
-        <button className='btn btn-outline-dark ml-2' onClick={logout}>
+        <button className='btn btn-outline-success btn-sm' onClick={logout}>
           Log out
         </button>
       </div>

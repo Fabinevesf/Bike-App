@@ -25,21 +25,23 @@ router.post('/register', async (req, res) => {
   }
 })
 
-router.post('/Login', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { username, password } = req.body
 
   try {
+    //check if the users exists
     const results = await db(
       `SELECT * FROM users WHERE username = "${username}"`
     )
     const user = results.data[0]
+    //if I have a user
     if (user) {
+      // compare the password
       const user_id = user.id
-
       const correctPassword = await bcrypt.compare(password, user.password)
 
       if (!correctPassword) throw new Error('Incorrect password')
-
+      //if the password is correct send a token with the user id inside
       var token = jwt.sign({ user_id }, supersecret)
       res.send({ message: 'Login successful, here is your token', token })
     } else {
@@ -50,10 +52,9 @@ router.post('/Login', async (req, res) => {
   }
 })
 
-router.get('/profile', userShouldBeLoggedIn, (req, res) => {
-  res.send({
-    message: 'Here is the PROTECTED data for user ' + req.user_id,
-  })
+router.get('/profile', userShouldBeLoggedIn, async (req, res) => {
+  const user = await db(`SELECT * FROM users WHERE id = ${req.user_id}`)
+  res.send(user.data)
 })
 
 module.exports = router

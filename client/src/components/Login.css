@@ -1,0 +1,17 @@
+.login {
+  height: 70vh;
+  width: 50vw;
+  text-align: center;
+  border: 3px solid green;
+  margin: auto;
+}
+
+.form-control {
+  margin-top: 50px;
+  padding: 2px 5px;
+  text-align: center;
+}
+
+h2 {
+  margin: 20px auto;
+}
